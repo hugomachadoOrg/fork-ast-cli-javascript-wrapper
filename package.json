@@ -1,5 +1,5 @@
 {
-  "name": "@hmmachadocx/fork-ast-cli-javascript-wrapper", "
+  "name": "@hmmachadocx/fork-ast-cli-javascript-wrapper",
   "version": "0.0.71",
   "description": "AST CLI Javascript wrapper",
   "main": "dist/main/wrapper/CxWrapper.js",
