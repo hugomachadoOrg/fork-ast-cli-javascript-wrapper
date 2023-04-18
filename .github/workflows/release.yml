@@ -22,20 +22,10 @@ jobs:
       - name: npm build
         run: npm run build
       - name: Set up NPM authentication
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-      - name: Set env as secret
-        env:
-          MY_VAL: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        run: |
-          import os
-          data = open("file", "w")
-          for q in (os.getenv("MY_VAL")):
-            print(q)
-            data.write(q)
-        shell: python
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.PERSONAL_ACCESS_TOKEN }}" >> ~/.npmrc
       - run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: "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"
+          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
       - name: Changelog
         uses: Bullrich/generate-release-changelog@master
         id: Changelog
