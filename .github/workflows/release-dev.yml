@@ -3,7 +3,7 @@ name: Create development release
 on:
   workflow_dispatch:
    inputs:
-      cli-tag:
+      cliTag:
         description: 'CLI tag name'
         required: true
 
@@ -20,4 +20,4 @@ jobs:
           git config user.email github-actions@github.com
       - name: Update version
         run: |
-          git status
+          echo " CLI TAG: ${{ github.event.inputs.cliTag }}"
