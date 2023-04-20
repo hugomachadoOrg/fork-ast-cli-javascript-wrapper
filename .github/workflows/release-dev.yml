@@ -1,0 +1,12 @@
+name: release-dev
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'branch name of ast-cli-javascript-wrapper'
+        required: true
+        default: main
+      cli-tag:
+        description: 'CLI tag name'
+        required: true
