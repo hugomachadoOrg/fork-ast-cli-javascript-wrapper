@@ -1,4 +1,4 @@
-name: Manual Tag Creation Cenas
+name: Create development release
 
 on:
   workflow_dispatch:
