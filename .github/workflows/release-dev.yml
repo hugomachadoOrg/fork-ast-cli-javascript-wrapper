@@ -1,0 +1,34 @@
+name: Create development release
+
+on:
+  workflow_dispatch:
+   inputs:
+      cliTag:
+        description: 'CLI tag name'
+        required: true
+
+jobs:
+  tag-creation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          ref: ${{ github.event.inputs.ref }}
+      - name: Download cli with tag ${{ github.event.inputs.cliTag }}
+        run: |
+          # Update binaries
+          chmod +x ./.github/scripts/update_cli.sh
+          ./.github/scripts/update_cli.sh ${{ github.event.inputs.cliTag }}
+          ls ./src/main/wrapper/resources
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Update version
+        run: |
+          echo " CLI TAG: ${{ github.event.inputs.cliTag }}"
+          
+          
+          
+          
