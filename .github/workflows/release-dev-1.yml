@@ -2,6 +2,10 @@ name: Create development release
 
 on:
   workflow_dispatch:
+   inputs:
+      cli-tag:
+        description: 'CLI tag name'
+        required: true
 
 jobs:
   tag-creation:
