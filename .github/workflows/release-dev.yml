@@ -1,8 +1,0 @@
-name: Create dev release
-
-on:
-  workflow_dispatch:
-    inputs:
-      cli-tag:
-        description: 'CLI tag name'
-        required: true
