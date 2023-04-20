@@ -11,7 +11,7 @@ jobs:
   tag-creation:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout branch '${{ github.event.inputs.ref }}'
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -22,3 +22,7 @@ jobs:
       - name: Update version
         run: |
           echo " CLI TAG: ${{ github.event.inputs.cliTag }}"
+          
+          
+          
+          
