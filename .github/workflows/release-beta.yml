@@ -3,10 +3,6 @@ name: Javascript Wrapper Release
 on:
   workflow_call:
     inputs:
-      tag:
-        description: 'Next release tag'
-        required: true
-        type: string
       dev:
         description: 'Is dev build'
         required: false
@@ -14,10 +10,6 @@ on:
         type: boolean
   workflow_dispatch:
     inputs:
-      tag:
-        description: 'Next release tag'
-        required: true
-        type: string
       dev:
         description: 'Is dev build'
         required: false
@@ -47,19 +39,28 @@ jobs:
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-      - name: Update tag version
+      - name: Update tag version RELEASE
         if: inputs.dev == false
         run: npm version patch
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+      - name: Update tag version DEV
+        if: inputs.dev == true
+        run: npm version prerelease --preid=nightly
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
       - run: npm ci
       - name: npm build
         run: npm run build
-      - name: Publish dev npm package
-        id: version
-        if: inputs.dev == true
-        run: |
-          npm version prerelease --preid=nightly
-          npm publish --tag=nightly
+      - run: git push && git push --tags
+      - name: Publish RELEASE
+        if: inputs.dev == false
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
-      
+      - name: Publish DEV
+        if: inputs.dev == true
+        run: npm publish --tag=nightly
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}      
       
