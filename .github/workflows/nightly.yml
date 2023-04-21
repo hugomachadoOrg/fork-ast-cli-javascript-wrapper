@@ -20,9 +20,16 @@ jobs:
         with:
           delete_release: true
           tag_name: 2.0.0-nightly
+  generate_prerelease_tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate pre-release tag
+        run: |
+          echo "TAG_NAME=$(npm version prerelease --preid=nightly)" >> $GITHUB_OUTPUT
+        id: tag_version
   nightly:
     needs: delete_tag
     uses: hmmachadocx/fork-ast-cli-javascript-wrapper/.github/workflows/release-beta.yml@main
     with:
-      tag: "2.0.0-nightly"
+      tag: ${{ steps.tag_version.outputs.TAG_NAME }}
     secrets: inherit
