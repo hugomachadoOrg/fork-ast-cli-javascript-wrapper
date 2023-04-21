@@ -1,4 +1,4 @@
-<!-- PROJECT LOGO 3 -->
+<!-- PROJECT LOGO 1 -->
 <br />
 <p align="center">
   <a href="">
