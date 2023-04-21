@@ -52,14 +52,12 @@ jobs:
       - name: Update tag version
         if: inputs.dev == false
         run: npm version patch
-      - name: Update tag version for dev
-        id: version
-        if: inputs.dev == true
-        run: |
-          tag_version="$(npm version prerelease --preid=nightly)"
-          echo "::set-output name=tag_version::$tag_version"
       - run: npm ci
       - name: npm build
         run: npm run build
+      - name: Publish dev npm package
+        id: version
+        if: inputs.dev == true
+        run: npm publish --tag=nightly
       
       
