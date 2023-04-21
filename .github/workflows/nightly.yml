@@ -24,5 +24,5 @@ jobs:
     needs: delete_tag
     uses: hmmachadocx/fork-ast-cli-javascript-wrapper/.github/workflows/release-beta.yml@main
     with:
-      tag: ${{ steps.version.outputs.TAG_NAME }}
+      tag: 2.0.0-nightly
     secrets: inherit
