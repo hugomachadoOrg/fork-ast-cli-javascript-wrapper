@@ -50,7 +50,8 @@ jobs:
       - name: Update tag version for dev
         if: inputs.dev == true
         run: |
-          body_release="$(npm version prerelease --preid=nightly)"
+          tag_version="$(npm version prerelease --preid=nightly)"
+          echo $tag_version
       - run: npm ci
       - name: npm build
         run: npm run build
