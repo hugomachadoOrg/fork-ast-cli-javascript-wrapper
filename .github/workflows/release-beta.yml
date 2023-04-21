@@ -52,6 +52,7 @@ jobs:
       - run: npm ci
       - name: npm build
         run: npm run build
+      - run: git push && git push --tags
       - name: Publish RELEASE
         if: inputs.dev == false
         run: npm publish --access public
