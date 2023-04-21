@@ -41,14 +41,25 @@ jobs:
         with:
           node-version: 10
           registry-url: https://npm.pkg.github.com/
+      - name: Update tag version
+        if: inputs.dev == false
+        run: npm version patch
+      - name: Update tag version for dev
+        if: inputs.dev == true
+        run: npm version prerelease --preid=nightly
       - run: npm ci
       - name: npm build
         run: npm run build
       - name: Set up NPM authentication
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.PERSONAL_ACCESS_TOKEN }}" >> ~/.npmrc
-      - run: npm publish --access public
+      - name: Publish npm package
+        if: inputs.dev == false
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+      - name: Publish npm package dev
+        if: inputs.dev == true
+        run: npm publish --tag=nightly
       - name: Changelog
         uses: Bullrich/generate-release-changelog@master
         id: Changelog
