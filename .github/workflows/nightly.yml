@@ -23,6 +23,4 @@ jobs:
   nightly:
     needs: delete_tag
     uses: hmmachadocx/fork-ast-cli-javascript-wrapper/.github/workflows/release-beta.yml@main
-    with:
-      tag: $(npm version prerelease --preid=nightly)
     secrets: inherit
