@@ -7,7 +7,7 @@ on:
         description: 'CLI tag name'
         required: false
         type: string
-        default: $(curl -sL https://api.github.com/repos/Checkmarx/ast-cli/releases/latest | jq -r ".tag_name")
+        default: $(<checkmarx-ast-cli.version)
       dev:
         description: 'Is dev build'
         required: false
