@@ -20,12 +20,9 @@ jobs:
         with:
           delete_release: true
           tag_name: 2.0.0-nightly
-  generate_prerelease_tag:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Generate pre-release tag
+      - name: Retrieve version
         run: |
-          echo "TAG_NAME=$(npm version prerelease --preid=nightly)" >> $GITHUB_OUTPUT
+          echo "TAG_NAME=$(npm version prerelease --preid=next)" >> $GITHUB_OUTPUT
         id: version
   nightly:
     needs: delete_tag
