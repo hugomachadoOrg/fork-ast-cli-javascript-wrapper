@@ -59,5 +59,7 @@ jobs:
         id: version
         if: inputs.dev == true
         run: npm publish --tag=nightly
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
       
       
