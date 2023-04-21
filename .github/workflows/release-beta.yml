@@ -44,9 +44,13 @@ jobs:
       - name: Update tag version
         if: inputs.dev == false
         run: npm version patch
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
       - name: Update tag version for dev
         if: inputs.dev == true
         run: npm version prerelease --preid=nightly
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
       - run: npm ci
       - name: npm build
         run: npm run build
