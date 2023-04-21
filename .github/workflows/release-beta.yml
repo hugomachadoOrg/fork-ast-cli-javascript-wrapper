@@ -49,7 +49,8 @@ jobs:
         run: npm version patch
       - name: Update tag version for dev
         if: inputs.dev == true
-        run: npm version prerelease --preid=nightly
+        run: |
+          body_release="$(npm version prerelease --preid=nightly)"
       - run: npm ci
       - name: npm build
         run: npm run build
