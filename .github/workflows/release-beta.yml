@@ -36,12 +36,6 @@ jobs:
         with:
           fetch-depth: 0
       - run: echo ${{ inputs.cliTag }}
-      - name: Download cli with tag ${{ inputs.cliTag }}
-        if: inputs.dev == true
-        run: |
-          # Update binaries
-          chmod +x ./.github/scripts/update_cli.sh
-          ./.github/scripts/update_cli.sh ${{ inputs.cliTag }}
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -64,6 +58,12 @@ jobs:
         run: npm version prerelease --preid=nightly
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+      - name: Download cli with tag ${{ inputs.cliTag }}
+        if: inputs.dev == true
+        run: |
+          # Update binaries
+          chmod +x ./.github/scripts/update_cli.sh
+          ./.github/scripts/update_cli.sh ${{ inputs.cliTag }}
       - run: npm ci
       - name: npm build
         run: npm run build
