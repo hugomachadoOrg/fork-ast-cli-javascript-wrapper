@@ -11,19 +11,6 @@ on:
       - main
 
 jobs:
-  delete_tag:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Delete release
-        uses: actions/delete-package-versions@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          package-name: 'fork-ast-cli-javascript-wrapper'
-          package-type: 'npm'
-          delete-only-pre-release-versions: true
-          token: ${{ secrets.GITHUB_TOKEN }}
   nightly:
-    needs: delete_tag
     uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/release-beta.yml@main
     secrets: inherit
