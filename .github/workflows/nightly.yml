@@ -15,9 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete release
-        uses: smartsquaregmbh/delete-old-packages@v0.7.0
+        uses: actions/delete-package-versions@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          organization: hugomachadoOrg
-          type: npm
-          names: |
-            fork-ast-cli-javascript-wrapper
+          package-name: 'fork-ast-cli-javascript-wrapper'
+          package-type: 'npm'
+          delete-only-pre-release-versions: true
+          token: ${{ secrets.GITHUB_TOKEN }}
