@@ -55,7 +55,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
       - name: Update tag version DEV
         if: inputs.dev == true
-        run: npm version prerelease --preid=nightly --no-git-tag-version
+        run: npm version prerelease --preid=nightly --no-git-tag-version --allow-same-version
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
       - name: Download cli with tag ${{ inputs.cliTag }}
