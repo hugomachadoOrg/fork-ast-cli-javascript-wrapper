@@ -26,3 +26,4 @@ jobs:
   nightly:
     needs: delete_tag
     uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/release-beta.yml@main
+    secrets: inherit
