@@ -29,6 +29,19 @@ permissions:
   contents: write
 
 jobs:
+  delete_tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete release if dev
+        if: inputs.dev == true
+        uses: actions/delete-package-versions@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          package-name: 'fork-ast-cli-javascript-wrapper'
+          package-type: 'npm'
+          delete-only-pre-release-versions: true
+          token: ${{ secrets.GITHUB_TOKEN }}
   release:
     runs-on: ubuntu-latest
     steps:
