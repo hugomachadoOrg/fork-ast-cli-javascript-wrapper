@@ -17,7 +17,7 @@ on:
     inputs:
       cliTag:
         description: 'CLI tag name'
-        required: false
+        required: ${{ inputs.dev }}
       dev:
         description: 'Is dev build'
         required: false
