@@ -18,6 +18,7 @@ on:
       cliTag:
         description: 'CLI tag name'
         required: false
+        default: 2.0.0-nightly
       dev:
         description: 'Is dev build'
         required: false
