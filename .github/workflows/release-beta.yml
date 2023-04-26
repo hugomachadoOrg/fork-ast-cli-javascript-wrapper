@@ -55,12 +55,12 @@ jobs:
           git config user.email github-actions@github.com
       - name: Update tag version RELEASE
         if: inputs.dev == false
-        run: npm version patch
+        run: npm version patch --no-git-tag-version
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
       - name: Update tag version DEV
         if: inputs.dev == true
-        run: npm version prerelease --preid=nightly
+        run: npm version prerelease --preid=nightly --no-git-tag-version
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
       - run: npm ci
