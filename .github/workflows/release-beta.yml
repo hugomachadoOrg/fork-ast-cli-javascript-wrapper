@@ -37,7 +37,6 @@ jobs:
           fetch-depth: 0
       - run: echo ${{ inputs.cliTag }}
       - name: Download cli with tag ${{ inputs.cliTag }}
-        if: inputs.dev == true
         run: |
           # Update binaries
           chmod +x ./.github/scripts/update_cli.sh
