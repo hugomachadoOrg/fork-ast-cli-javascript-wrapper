@@ -19,7 +19,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           owner: 'github'
-          package-name: '@hmmachadocx/fork-ast-cli-javascript-wrapper'
+          package-name: 'fork-ast-cli-javascript-wrapper'
           package-type: 'npm'
           delete-only-pre-release-versions: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
