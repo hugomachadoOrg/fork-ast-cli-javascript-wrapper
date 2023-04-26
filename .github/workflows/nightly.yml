@@ -18,7 +18,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          package-name: 'fork-ast-cli-javascript-wrapper'
+          package-name: '@hmmachadocx/fork-ast-cli-javascript-wrapper'
           package-type: 'npm'
           delete-only-pre-release-versions: true
           token: ${{ secrets.GITHUB_TOKEN }}
