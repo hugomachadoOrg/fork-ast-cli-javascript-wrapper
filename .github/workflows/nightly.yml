@@ -23,3 +23,6 @@ jobs:
           package-type: 'npm'
           delete-only-pre-release-versions: true
           token: ${{ secrets.GITHUB_TOKEN }}
+  nightly:
+    needs: delete_tag
+    uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/release-beta.yml@main
