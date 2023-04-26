@@ -20,7 +20,7 @@ on:
         required: false
       dev:
         description: 'Is dev build'
-        required: ${{ inputs.dev }}
+        required: false
         default: true
         type: boolean
 
@@ -37,6 +37,7 @@ jobs:
           fetch-depth: 0
       - run: echo ${{ inputs.cliTag }}
       - name: Download cli with tag ${{ inputs.cliTag }}
+        if: inputs.dev == false
         run: |
           # Update binaries
           chmod +x ./.github/scripts/update_cli.sh
