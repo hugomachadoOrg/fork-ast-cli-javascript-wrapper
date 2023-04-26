@@ -17,7 +17,7 @@ jobs:
       - name: Delete release
         uses: smartsquaregmbh/delete-old-packages@v0.7.0
         with:
-          organization: hmmachadocx
+          organization: hugomachadoOrg
           type: npm
           names: |
             fork-ast-cli-javascript-wrapper

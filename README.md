@@ -40,7 +40,7 @@ Add the following dependency:
 
 ```     
 "dependencies": {
-    "@hmmachadocx/fork-ast-cli-javascript-wrapper": "{version}"
+    "@hugomachadoOrg/fork-ast-cli-javascript-wrapper": "{version}"
 }
 ```
 
@@ -86,7 +86,7 @@ setx PATH_TO_EXECUTABLE {value}
 
 Checkmarx - AST Integrations Team
 
-CxProject Link: [https://github.com/hmmachadocx/fork-ast-cli-javascript-wrapper](https://github.com/hmmachadocx/fork-ast-cli-javascript-wrapper)
+CxProject Link: [https://github.com/hugomachadoOrg/fork-ast-cli-javascript-wrapper](https://github.com/hmmachadocx/fork-ast-cli-javascript-wrapper)
 
 
 © 2021 Checkmarx Ltd. All Rights Reserved.
