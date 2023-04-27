@@ -1,6 +1,6 @@
 {
   "name": "@hugomachadoOrg/fork-ast-cli-javascript-wrapper",
-  "version": "0.0.201",
+  "version": "0.0.202",
   "description": "Fork AST CLI Javascript wrapper",
   "main": "dist/main/wrapper/CxWrapper.js",
   "typings": "dist/main/wrapper/CxWrapper.d.ts",
