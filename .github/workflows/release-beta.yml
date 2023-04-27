@@ -108,9 +108,7 @@ jobs:
           npm ci
           npm run build
           
-      - name: Push tag if release
-        if: inputs.dev == false
-        run: git push && git push --tags
+      - run: git push && git push --tags
           
       # PUBLISH NPM PACKAGES
       ## RELEASE PACKAGE
