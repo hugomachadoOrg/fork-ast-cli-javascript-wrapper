@@ -79,27 +79,33 @@ jobs:
         run: |
           npm ci
           npm run build
-      - name: Publish RELEASE
+          
+      # PUBLISH NPM PACKAGES
+      ## RELEASE PACKAGE
+      - name: Publish release package
         if: inputs.dev == false
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
-      - name: Publish DEV
+      ## DEV PACKAGE  
+      - name: Publish dev package
         if: inputs.dev == true
         run: npm publish --tag=nightly
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+      
+      # TEST
       - run: echo "Github Ref= " ${{ github.ref }}
+      
+      # CREATE RELEASE
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: |
-            ${{ steps.Changelog.outputs.changelog }}
+          body: ${{ steps.Changelog.outputs.changelog }}
           draft: false
           prerelease: ${{ inputs.dev }}
       
