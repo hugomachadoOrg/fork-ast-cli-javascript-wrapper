@@ -61,7 +61,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         with:
           keep_latest: 0
-          delete_tag_pattern: inputs.jsTag
+          delete_tag_pattern: ${{ inputs.jsTag }}
           delete_tags: true
           
   release:
