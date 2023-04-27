@@ -31,10 +31,10 @@ permissions:
   packages: write
 
 jobs:
-  delete_tag:
+  delete_pre_release_packages:
     runs-on: ubuntu-latest
     steps:
-      - name: Delete release if dev
+      - name: Delete npm packages if dev
         if: inputs.dev == true
         uses: actions/delete-package-versions@v4
         env:
