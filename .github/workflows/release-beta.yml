@@ -62,15 +62,11 @@ jobs:
           node-version: 10
           registry-url: https://npm.pkg.github.com/
           
-      - name: Retrieve version
-        run: |
-          echo "TAG_NAME=$(npm version prerelease --preid=nightly --no-git-tag-version --allow-same-version)" >> $GITHUB_OUTPUT
-        id: version
-      
+      - name: Set env
+        if: inputs.dev == true
+        run: echo "TAG_NAME=$(npm version prerelease --preid=nightly --no-git-tag-version --allow-same-version)" >> $GITHUB_ENV
+    
       - run: echo "NEW TAG= " $TAG_NAME
-      
-      - run: echo "NEW TAG= " ${{ steps.version.outputs.TAG_NAME }}
-
           
       - name: Update tag version DEV
         if: inputs.dev == true
