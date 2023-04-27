@@ -71,3 +71,42 @@ jobs:
         run: echo "TAG_NAME=$(npm version patch)" >> $GITHUB_ENV
         
       - run: echo "NEW TAG= " $TAG_NAME
+      
+      - name: Download cli with tag ${{ inputs.cliTag }}
+        if: inputs.dev == true
+        run: |
+          # Update binaries
+          chmod +x ./.github/scripts/update_cli.sh
+          ./.github/scripts/update_cli.sh ${{ inputs.cliTag }}
+      
+      - name: NPM ci and build
+        run: |
+          npm ci
+          npm run build
+          
+      # PUBLISH NPM PACKAGES
+      ## RELEASE PACKAGE
+      - name: Publish release package
+        if: inputs.dev == false
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+      ## DEV PACKAGE  
+      - name: Publish dev package
+        if: inputs.dev == true
+        run: npm publish --tag=nightly
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+      
+      # CREATE RELEASE
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: $TAG_NAME
+          release_name: Release $TAG_NAME
+          body: ${{ steps.Changelog.outputs.changelog }}
+          draft: false
+          prerelease: ${{ inputs.dev }}
