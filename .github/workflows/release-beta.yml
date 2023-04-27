@@ -53,4 +53,5 @@ jobs:
         with:
           keep_latest: 0
           delete_tag_pattern: nightly
+          delete_tags: true
           
