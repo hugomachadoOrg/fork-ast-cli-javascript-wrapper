@@ -21,10 +21,10 @@ on:
   workflow_dispatch:
     inputs:
       cliTag:
-        description: 'CLI tag name     (ignored if it is not dev build)'
+        description: 'CLI tag name (ignored if not dev build)'
         required: false
       jsTag:
-        description: 'JS Wrapper tag name     (ignored if it is not dev build)'
+        description: 'Tag name (ignored if not dev build)'
         required: false
         type: string
         default: rc
