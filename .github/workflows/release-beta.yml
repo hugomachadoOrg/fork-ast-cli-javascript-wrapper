@@ -96,6 +96,7 @@ jobs:
       
       # TEST
       - run: echo "Github Ref= " ${{ github.ref }}
+      - run: echo "Github Ref Name= " ${{ github.ref_name }}
       
       # CREATE RELEASE
       - name: Create Release
