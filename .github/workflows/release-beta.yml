@@ -8,6 +8,11 @@ on:
         required: false
         type: string
         default: 2.0.0-nightly
+      jsTag:
+        description: 'JS Wrapper tag name'
+        required: false
+        type: string
+        default: rc
       dev:
         description: 'Is dev build'
         required: false
@@ -18,7 +23,11 @@ on:
       cliTag:
         description: 'CLI tag name'
         required: false
-        default: 2.0.0-nightly
+      jsTag:
+        description: 'JS Wrapper tag name'
+        required: false
+        type: string
+        default: rc
       dev:
         description: 'Is dev build'
         required: false
