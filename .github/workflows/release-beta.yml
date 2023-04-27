@@ -105,8 +105,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: $TAG_NAME
-          release_name: Release $TAG_NAME
+          tag_name: ${{env.TAG_NAME}}
+          release_name: Release ${{env.TAG_NAME}}
           body: ${{ steps.Changelog.outputs.changelog }}
           draft: false
           prerelease: ${{ inputs.dev }}
