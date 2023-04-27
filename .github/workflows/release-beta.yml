@@ -44,6 +44,16 @@ jobs:
           package-type: 'npm'
           delete-only-pre-release-versions: true
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          
+      - name: Delete older releases if dev
+        if: inputs.dev == true
+        uses: dev-drprasad/delete-older-releases@v0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        with:
+          keep_latest: 0
+          delete_tag_pattern: nightly
+          
   release:
     runs-on: ubuntu-latest
     steps:
