@@ -12,7 +12,7 @@ on:
         description: 'JS Wrapper tag name'
         required: false
         type: string
-        default: rc
+        default: nightly
       dev:
         description: 'Is dev build'
         required: false
@@ -61,12 +61,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         with:
           keep_latest: 0
-          delete_tag_pattern: nightly
+          delete_tag_pattern: inputs.jsTag
           delete_tags: true
           
   release:
     runs-on: ubuntu-latest
     steps:
+    
+      # Checkout project
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -82,6 +84,7 @@ jobs:
           node-version: 10
           registry-url: https://npm.pkg.github.com/
           
+      # Get tag name
       - name: Update tag version DEV
         if: inputs.dev == true
         run: echo "TAG_NAME=$(npm version prerelease --preid=nightly --no-git-tag-version --allow-same-version)" >> $GITHUB_ENV
@@ -92,8 +95,9 @@ jobs:
         
       - run: echo "NEW TAG= " $TAG_NAME
       
+      # Download CLI if it is dev version
       - name: Download cli with tag ${{ inputs.cliTag }}
-        if: inputs.dev == true
+        if: inputs.dev == true && inputs.cliTag != ''
         run: |
           # Update binaries
           chmod +x ./.github/scripts/update_cli.sh
