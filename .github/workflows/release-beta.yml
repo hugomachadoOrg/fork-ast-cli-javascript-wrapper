@@ -106,7 +106,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: 'my_tag'
           release_name: Release ${{ github.ref }}
           body: ${{ steps.Changelog.outputs.changelog }}
           draft: false
