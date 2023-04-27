@@ -93,6 +93,7 @@ jobs:
         run: npm publish --tag=nightly
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+      - run: echo "Github Ref= " ${{ github.ref }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
