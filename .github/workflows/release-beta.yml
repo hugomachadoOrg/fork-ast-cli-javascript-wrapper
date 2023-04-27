@@ -87,7 +87,7 @@ jobs:
       # Get tag name
       - name: Update tag version DEV
         if: inputs.dev == true
-        run: echo "TAG_NAME=$(npm version prerelease --preid=nightly --no-git-tag-version --allow-same-version)" >> $GITHUB_ENV
+        run: echo "TAG_NAME=$(npm version prerelease --preid=${{ inputs.jsTag }} --no-git-tag-version --allow-same-version)" >> $GITHUB_ENV
     
       - name: Update tag version RELEASE
         if: inputs.dev == false
@@ -122,7 +122,7 @@ jobs:
       ## DEV PACKAGE  
       - name: Publish dev package
         if: inputs.dev == true
-        run: npm publish --tag=nightly
+        run: npm publish --tag=${{ inputs.jsTag }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
       
