@@ -40,24 +40,19 @@ permissions:
   packages: write
 
 jobs:
-  delete_pre_release_packages:
+  delete_nightly:
     runs-on: ubuntu-latest
     steps:
-      - name: Print info
-        run: |
-          echo "${{ github.event_name  }}"
-      - name: Delete npm packages if dev
+      - name: Delete nightly npm package
         if: github.event_name != 'workflow_dispatch'
         uses: actions/delete-package-versions@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         with:
           package-name: 'fork-ast-cli-javascript-wrapper'
           package-type: 'npm'
           ignore-versions: '^((?!nightly).)*$'
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           
-      - name: Delete older releases if dev
+      - name: Delete nightly release and tag
         if: github.event_name != 'workflow_dispatch'
         uses: dev-drprasad/delete-older-releases@v0.2.1
         env:
