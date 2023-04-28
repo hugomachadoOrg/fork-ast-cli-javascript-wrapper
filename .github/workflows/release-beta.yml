@@ -91,5 +91,5 @@ jobs:
         with:
           package-name: 'fork-ast-cli-javascript-wrapper'
           package-type: 'npm'
-          package-version-ids: 'my_package_name'
+          package-version-ids: 0.0.220
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
