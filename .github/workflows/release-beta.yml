@@ -43,6 +43,8 @@ jobs:
   delete_nightly:
     runs-on: ubuntu-latest
     steps:
+    
+      # Delete npm packages which contains nightly in the name
       - name: Delete nightly npm package
         if: github.event_name != 'workflow_dispatch'
         uses: actions/delete-package-versions@v4
@@ -52,6 +54,7 @@ jobs:
           ignore-versions: '^((?!nightly).)*$'
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           
+      # Delete releases and tags which contains nightly in the name
       - name: Delete nightly release and tag
         if: github.event_name != 'workflow_dispatch'
         uses: dev-drprasad/delete-older-releases@v0.2.1
@@ -85,14 +88,13 @@ jobs:
       # Get tag name
       - name: Update tag version DEV
         if: inputs.dev == true
-        run: echo "TAG_NAME=$(npm version prerelease --preid=${{ inputs.jsTag }} --no-git-tag-version --allow-same-version)" >> $GITHUB_ENV
-    
-      - name: Update tag version RELEASE
-        if: inputs.dev == false
-        run: echo "TAG_NAME=$(npm version patch)" >> $GITHUB_ENV
+        run: |
+          if [ ${{inputs.dev }} ]; then
+            echo "TAG_NAME=$(npm version prerelease --preid=${{ inputs.jsTag }} --no-git-tag-version --allow-same-version)" >> $GITHUB_ENV
+          else
+            echo "TAG_NAME=$(npm version patch)" >> $GITHUB_ENV
+          fi
         
-      - run: echo "NEW TAG= " $TAG_NAME
-      
       # Download CLI if it is dev version
       - name: Download cli with tag ${{ inputs.cliTag }}
         if: inputs.dev == true && inputs.cliTag != ''
