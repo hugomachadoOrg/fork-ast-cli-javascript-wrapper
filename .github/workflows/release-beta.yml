@@ -103,7 +103,8 @@ jobs:
             echo "TAG_NAME=$(npm version patch)" >> $GITHUB_ENV
           fi
           
-          echo "NEXT TAG = ${{env.TAG_NAME}}"
+      - name: Print next tag version
+        run: echo ${{env.TAG_NAME}}
         
       # DOWNLOAD CLI IF IT IS A DEV VERSION AND A CLI TAG WAS PROVIDED
       - name: Download cli with tag ${{ inputs.cliTag }}
