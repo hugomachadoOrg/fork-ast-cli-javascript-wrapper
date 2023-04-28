@@ -106,8 +106,8 @@ jobs:
       - name: Print next tag version
         run: |
           echo ${{env.TAG_NAME}}
-          echo "NEXT_TAG_VERSION=${${{env.TAG_NAME}}#v}" >> $GITHUB_ENV
-          
-      - name: Print next tag version - FIX
-        run: echo ${{env.NEXT_TAG_VERSION}}
+          VERSION=${{env.TAG_NAME}}
+          echo "VERSION=${VERSION:1}" >> $GITHUB_ENV
+          echo Version $VERSION
+  
         
