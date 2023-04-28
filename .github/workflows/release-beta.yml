@@ -42,11 +42,11 @@ permissions:
 jobs:
   delete_nightly:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
     
       # DELETE NPM PACKAGES WHICH CONTAINS NIGHTLY IN THE NAME
       - name: Delete nightly npm package
+        continue-on-error: true
         if: github.event_name != 'workflow_dispatch'
         uses: actions/delete-package-versions@v4
         with:
@@ -57,6 +57,7 @@ jobs:
           
       # DELETE RELEASES AND TAGS WHICH CONTAINS NIGHTLY IN THE NAME
       - name: Delete nightly release and tag
+        continue-on-error: true
         if: github.event_name != 'workflow_dispatch'
         uses: dev-drprasad/delete-older-releases@v0.2.1
         env:
