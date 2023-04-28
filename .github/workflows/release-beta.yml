@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-      # Delete npm packages which contains nightly in the name
+      # DELETE NPM PACKAGES WHICH CONTAINS NIGHTLY IN THE NAME
       - name: Delete nightly npm package
         if: github.event_name != 'workflow_dispatch'
         uses: actions/delete-package-versions@v4
@@ -54,7 +54,7 @@ jobs:
           ignore-versions: '^((?!nightly).)*$'
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           
-      # Delete releases and tags which contains nightly in the name
+      # DELETE RELEASES AND TAGS WHICH CONTAINS NIGHTLY IN THE NAME
       - name: Delete nightly release and tag
         if: github.event_name != 'workflow_dispatch'
         uses: dev-drprasad/delete-older-releases@v0.2.1
@@ -69,34 +69,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-      # Checkout project
+      # CHECKOUT PROJECT
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           
-      # Git configuration
+      # GIT CONFIGURATION
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           
-      # Setup node
+      # SETUP NODE
       - uses: actions/setup-node@v3.6.0
         with:
           node-version: 10
           registry-url: https://npm.pkg.github.com/
           
-      # Get tag name
+      # GET TAG NAME
       - name: Generate Tag name
         run: |
           if [ ${{ inputs.dev }} == true ]; then
-            echo " ====> It is a DEV version"
             echo "TAG_NAME=$(npm version prerelease --preid=${{ inputs.jsTag }} --no-git-tag-version --allow-same-version)" >> $GITHUB_ENV
           else
-            echo " ====> It is a RELEASE version"
             echo "TAG_NAME=$(npm version patch)" >> $GITHUB_ENV
           fi
         
-      # Download CLI if it is dev version
+      # DOWNLOAD CLI IF IT IS A DEV VERSION AND A CLI TAG WAS PROVIDED
       - name: Download cli with tag ${{ inputs.cliTag }}
         if: inputs.dev == true && inputs.cliTag != ''
         run: |
@@ -104,29 +102,28 @@ jobs:
           chmod +x ./.github/scripts/update_cli.sh
           ./.github/scripts/update_cli.sh ${{ inputs.cliTag }}
       
+      # RUN NPM INSTALL AND BUILD
       - name: NPM ci and build
         run: |
           npm ci
           npm run build
           
+      # PUSH TAGS IF IT IS A RELEASE
       - name: Push tag if release
         if: inputs.dev == false
         run: git push && git push --tags
           
-      # PUBLISH NPM PACKAGES
-      ## RELEASE PACKAGE
-      - name: Publish release package
-        if: inputs.dev == false
-        run: npm publish --access public
+      # PUBLISH NPM PACKAGE
+      - name: Publish npm package
+        run: |
+          if [ ${{ inputs.dev }} == true ]; then
+            npm publish --tag=${{ inputs.jsTag }}
+          else
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
-      ## DEV PACKAGE  
-      - name: Publish dev package
-        if: inputs.dev == true
-        run: npm publish --tag=${{ inputs.jsTag }}
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
-      
+
       # CREATE RELEASE
       - name: Create Release
         id: create_release
