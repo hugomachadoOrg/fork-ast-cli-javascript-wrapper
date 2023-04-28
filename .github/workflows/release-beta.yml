@@ -45,9 +45,9 @@ jobs:
     steps:
       - name: Print info
         run: |
-          echo "${{ github.event.action }}"
+          echo "${{ github.event_name  }}"
       - name: Delete npm packages if dev
-        if: github.event.action == 'workflow_call'
+        if: github.event_name == 'workflow_call'
         uses: actions/delete-package-versions@v4
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -58,7 +58,7 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           
       - name: Delete older releases if dev
-        if: github.event.action == 'workflow_call'
+        if: github.event_name == 'workflow_call'
         uses: dev-drprasad/delete-older-releases@v0.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
