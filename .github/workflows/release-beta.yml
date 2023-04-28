@@ -44,18 +44,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete npm packages if dev
-        if: inputs.dev == true
+        if: github.event.action == workflow_call
         uses: actions/delete-package-versions@v4
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         with:
           package-name: 'fork-ast-cli-javascript-wrapper'
           package-type: 'npm'
-          delete-only-pre-release-versions: true
+          ignore-versions: '^((?!nightly).)*$'
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           
       - name: Delete older releases if dev
-        if: inputs.dev == true && inputs.jsTag == 'nightly'
+        if: github.event.action == workflow_call
         uses: dev-drprasad/delete-older-releases@v0.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
