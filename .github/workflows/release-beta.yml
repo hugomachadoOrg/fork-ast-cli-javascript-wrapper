@@ -86,8 +86,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           
       # Get tag name
-      - name: Update tag version DEV
-        if: inputs.dev == true
+      - name: Generate Tag name
         run: |
           if [ ${{inputs.dev }} ]; then
             echo "TAG_NAME=$(npm version prerelease --preid=${{ inputs.jsTag }} --no-git-tag-version --allow-same-version)" >> $GITHUB_ENV
