@@ -43,6 +43,9 @@ jobs:
   delete_pre_release_packages:
     runs-on: ubuntu-latest
     steps:
+      - name: Print info
+        run: |
+          echo "${{ github.event.action }}"
       - name: Delete npm packages if dev
         if: github.event.action == 'workflow_call'
         uses: actions/delete-package-versions@v4
