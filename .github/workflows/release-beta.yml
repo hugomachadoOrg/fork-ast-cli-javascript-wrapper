@@ -108,10 +108,50 @@ jobs:
           echo ${{env.TAG_NAME}}
           VERSION=${{env.TAG_NAME}}
           echo "VERSION_FIX=${VERSION:1}" >> $GITHUB_ENV
-          echo Version $VERSION_FIX
           
-     
       - name: Print next tag version - FIX
         run: echo ${{env.VERSION_FIX}}
   
-        
+      # DOWNLOAD CLI IF IT IS A DEV VERSION AND A CLI TAG WAS PROVIDED
+      - name: Download cli with tag ${{ inputs.cliTag }}
+        if: inputs.dev == true && inputs.cliTag != ''
+        run: |
+          # Update binaries
+          chmod +x ./.github/scripts/update_cli.sh
+          ./.github/scripts/update_cli.sh ${{ inputs.cliTag }}
+      
+      # RUN NPM INSTALL AND BUILD
+      - name: NPM ci and build
+        run: |
+          npm ci
+          npm run build
+          
+      # PUSH TAGS IF IT IS A RELEASE
+      - name: Push tag if release
+        if: inputs.dev == false
+        run: git push && git push --tags
+          
+      # PUBLISH NPM PACKAGE
+      - name: Publish npm package
+        run: |
+          if [ ${{ inputs.dev }} == true ]; then
+            npm publish --tag=${{ inputs.jsTag }}
+          else
+            npm publish --access public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+
+      # CREATE RELEASE
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{env.TAG_NAME}}
+          release_name: Release ${{env.TAG_NAME}}
+          body: ${{ steps.Changelog.outputs.changelog }}
+          draft: false
+          prerelease: ${{ inputs.dev }}
+
