@@ -1,4 +1,4 @@
-<!-- PROJECT LOGO 11 -->
+<!-- PROJECT LOGO  -->
 <br />
 <p align="center">
   <a href="">
