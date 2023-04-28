@@ -107,7 +107,11 @@ jobs:
         run: |
           echo ${{env.TAG_NAME}}
           VERSION=${{env.TAG_NAME}}
-          echo "VERSION=${VERSION:1}" >> $GITHUB_ENV
-          echo Version $VERSION
+          echo "VERSION_FIX=${VERSION:1}" >> $GITHUB_ENV
+          echo Version $VERSION_FIX
+          
+     
+      - name: Print next tag version - FIX
+        run: echo ${{env.VERSION_FIX}}
   
         
