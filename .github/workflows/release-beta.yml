@@ -42,6 +42,7 @@ permissions:
 jobs:
   delete_nightly:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
     
       # DELETE NPM PACKAGES WHICH CONTAINS NIGHTLY IN THE NAME
