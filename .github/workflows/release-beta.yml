@@ -76,12 +76,8 @@ jobs:
             echo "TAG_NAME=$(npm version patch)" >> $GITHUB_ENV
           fi
           
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          
       - name: Delete dev packages and releases
-        uses: ./.github/workflows/delete-dev-releases-and-packages.yml@main
+        uses: ./.github/actions/delete-dev-releases-and-packages
         with:
           tag: ${{env.TAG_NAME}}
         if: inputs.dev == true
