@@ -77,7 +77,7 @@ jobs:
           fi
           
       - name: Delete dev packages and releases
-        uses: ./.github/workflows/delete-dev-releases-and-packages.yml@main
+        uses: .github/workflows/delete-dev-releases-and-packages.yml@main
         with:
           tag: ${{env.TAG_NAME}}
         if: inputs.dev == true
