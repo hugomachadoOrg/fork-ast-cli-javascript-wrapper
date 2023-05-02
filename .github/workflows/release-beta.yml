@@ -75,44 +75,12 @@ jobs:
           else
             echo "TAG_NAME=$(npm version patch)" >> $GITHUB_ENV
           fi
-          
-      - name: Print next tag version
-        run: |
-          echo ${{env.TAG_NAME}}
-          VERSION=${{env.TAG_NAME}}
-          echo "VERSION_FIX=${VERSION:1}" >> $GITHUB_ENV
-          
-      - name: Print next tag version - FIX
-        run: echo ${{env.VERSION_FIX}}
       
-      - name: Get version id of existing package version
-        if: ${{ inputs.dev }} == true
-        continue-on-error: true
-        run: |
-          RESPONSE=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/orgs/hugomachadoOrg/packages/npm/fork-ast-cli-javascript-wrapper/versions" | jq '.[]|select(.name=="${{env.VERSION_FIX}}")|.id')
-          
-          echo "VERSION_ID=${RESPONSE}" >> $GITHUB_ENV
-          
-      - name: Print VERSION_ID
-        run: echo Version Id= ${{env.VERSION_ID}}
-     
-       # DELETE NPM PACKAGES WHICH CONTAINS NIGHTLY IN THE NAME
-      - name: Delete nightly npm package
-        if: inputs.dev == true && env.VERSION_ID != ''
-        run: |
-          curl -L -X DELETE -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/orgs/hugomachadoOrg/packages/npm/fork-ast-cli-javascript-wrapper/versions/${{env.VERSION_ID}}"
-
-      # DELETE RELEASES AND TAGS WHICH CONTAINS NIGHTLY IN THE NAME
-      - name: Delete nightly release and tag
-        continue-on-error: true
+      - name: Delete dev packages and releases
         if: inputs.dev == true
-        uses: dev-drprasad/delete-older-releases@v0.2.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/delete-dev-releases-and-packages.yml@main
         with:
-          keep_latest: 0
-          delete_tag_pattern: ${{env.TAG_NAME}}
-          delete_tags: true
+          tag: ${{env.TAG_NAME}}
           
       # DOWNLOAD CLI IF IT IS A DEV VERSION AND A CLI TAG WAS PROVIDED
       - name: Download cli with tag ${{ inputs.cliTag }}
