@@ -79,12 +79,13 @@ jobs:
       - name: Print next tag version
         run: |
           echo ${{env.TAG_NAME}}
-          echo "VERSION_FIX=${${{env.TAG_NAME}}:1}" >> $GITHUB_ENV
+          VERSION=${{env.TAG_NAME}}
+          echo "VERSION_FIX=${VERSION:1}" >> $GITHUB_ENV
           
       - name: Print next tag version - FIX
         run: echo ${{env.VERSION_FIX}}
       
-      - name: Get version id of existing package versions
+      - name: Get version id of existing package version
         if: ${{ inputs.dev }} == true
         continue-on-error: true
         run: |
