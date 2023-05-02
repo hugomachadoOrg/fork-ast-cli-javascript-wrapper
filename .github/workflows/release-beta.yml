@@ -39,7 +39,12 @@ permissions:
   contents: write
   packages: write
 
-jobs:          
+jobs:        
+  delete:
+    uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/delete-workflow.yml@main
+    with:
+      tag: 'rc'
+    secrets: inherit
   release:
     runs-on: ubuntu-latest
     steps:
