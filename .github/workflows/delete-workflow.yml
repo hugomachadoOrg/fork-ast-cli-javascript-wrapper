@@ -7,7 +7,11 @@ on:
         description: 'Tag to delete'
         required: true
         type: string
-        
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to delete'
+        required: true
         
 permissions:
   id-token: write
