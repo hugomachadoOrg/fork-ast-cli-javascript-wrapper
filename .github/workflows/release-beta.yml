@@ -79,7 +79,7 @@ jobs:
   delete-dev:
     uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/delete-dev-releases-and-packages.yml@main
     with:
-      tag: ${{env.TAG_NAME}}
+      tag: '${{env.TAG_NAME}}'
     if: inputs.dev == true
     
   release:
