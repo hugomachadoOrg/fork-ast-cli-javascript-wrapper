@@ -31,6 +31,6 @@ jobs:
           echo ${RESPONSE}
           
           for param in "${RESPONSE[@]}"; do
-             printf "\nCurling param [%s]\n" "$param"
+            echo "VALUE:  $param"
              sleep 1
           done
