@@ -11,11 +11,6 @@ on:
       - main
 
 jobs:
-  delete:
-    uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/delete-workflow.yml@main
-    with:
-      tag: 'nightly'
-    secrets: inherit
   nightly:
     uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/release-beta.yml@main
     secrets: inherit
