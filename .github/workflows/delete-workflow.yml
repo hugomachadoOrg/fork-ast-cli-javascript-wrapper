@@ -1,4 +1,4 @@
-name: Javascript Wrapper Release
+name: Delete dev packages and releases
 
 on:
   workflow_call:
