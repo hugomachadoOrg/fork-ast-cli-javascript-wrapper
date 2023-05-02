@@ -35,4 +35,6 @@ jobs:
              sleep 1
           done
           
-          #echo "VERSION_ID=${RESPONSE}" >> $GITHUB_ENV
+          echo "VERSION_ID=${RESPONSE}" >> $GITHUB_ENV
+          
+          echo  "======> ${{env.VERSION_ID}}"
