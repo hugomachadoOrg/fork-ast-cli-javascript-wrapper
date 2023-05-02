@@ -35,12 +35,5 @@ jobs:
           
           for (( i=0; i<${arraylength}; i++ ));
           do
-            echo "index: $i, value: ${array[$i]}"
-          done
-          
-          ## now loop through the above array
-          for i in "${RESPONSE[@]}"
-          do
-             echo "$i"
-             # or do whatever with individual element of the array
+            echo "index: $i, value: ${RESPONSE[$i]}"
           done
