@@ -34,6 +34,6 @@ jobs:
           
           for versionId in "${VERSION_IDS[@]}"
           do
-             echo Deleting version $versionId ...
+             echo $versionId
           done
           
