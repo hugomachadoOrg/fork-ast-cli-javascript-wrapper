@@ -40,7 +40,7 @@ permissions:
   packages: write
 
 jobs:          
-  setup-release:
+  release:
     runs-on: ubuntu-latest
     steps:
     
@@ -76,17 +76,11 @@ jobs:
             echo "TAG_NAME=$(npm version patch)" >> $GITHUB_ENV
           fi
           
-  delete-dev:
-    needs: setup-release
-    uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/delete-dev-releases-and-packages.yml@main
-    with:
-      tag: env.TAG_NAME
-    if: inputs.dev == true
-    
-  release:
-    needs: delete-dev
-    runs-on: ubuntu-latest
-    steps:
+      - name: Delete dev packages and releases
+        uses: ./.github/workflows/delete-dev-releases-and-packages.yml@main
+        with:
+          tag: ${{env.TAG_NAME}}
+        if: inputs.dev == true
 
       # DOWNLOAD CLI IF IT IS A DEV VERSION AND A CLI TAG WAS PROVIDED
       - name: Download cli with tag ${{ inputs.cliTag }}
