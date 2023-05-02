@@ -77,12 +77,14 @@ jobs:
           fi
           
   delete-dev:
+    needs: setup-release
     uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/delete-dev-releases-and-packages.yml@main
     with:
       tag: env.TAG_NAME
     if: inputs.dev == true
     
   release:
+    needs: delete-dev
     runs-on: ubuntu-latest
     steps:
 
