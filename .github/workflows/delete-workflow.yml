@@ -35,6 +35,6 @@ jobs:
           for i in "${RESPONSE[@]}"
           do
              echo "$i"
-             # or do whatever with individual element of the array
+             # oro do whatever with individual element of the array
           done
           
