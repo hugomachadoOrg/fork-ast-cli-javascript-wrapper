@@ -37,4 +37,4 @@ jobs:
           
           echo "VERSION_ID=${RESPONSE}" >> $GITHUB_ENV
           
-          echo  "======> ${{env.VERSION_ID}}"
+          echo  "Result ${{env.VERSION_ID}}"
