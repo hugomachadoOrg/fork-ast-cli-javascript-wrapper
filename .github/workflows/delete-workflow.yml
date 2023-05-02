@@ -36,4 +36,7 @@ jobs:
           for (( i=0; i<${arraylength}; i++ ));
           do
             echo "index: $i, value: ${RESPONSE[$i]}"
+            
+            arrLen=${#RESPONSE[$i][@]} 
+            echo "LENGTHHHHH ${arrLen}"
           done
