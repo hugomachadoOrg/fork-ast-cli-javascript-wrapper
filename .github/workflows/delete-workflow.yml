@@ -27,16 +27,6 @@ jobs:
       - name: Get version id of existing package version
         continue-on-error: true
         run: |
-          RESPONSE=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/hugomachadoOrg/packages/npm/fork-ast-cli-javascript-wrapper/versions)
+          RESPONSE=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer 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" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/hugomachadoOrg/packages/npm/fork-ast-cli-javascript-wrapper/versions | jq '.[]|select(.name=="0.0.222-nightly.0")|.id')
+          echo ${RESPONSE}
           
-          arraylength=${#RESPONSE[@]}    
-          
-          echo "LENGTH ${arraylength}"
-          
-          for (( i=0; i<${arraylength}; i++ ));
-          do
-            echo "index: $i, value: ${RESPONSE[$i]}"
-            
-            arrLen=${#RESPONSE[$i][@]} 
-            echo "LENGTHHHHH ${arrLen}"
-          done
