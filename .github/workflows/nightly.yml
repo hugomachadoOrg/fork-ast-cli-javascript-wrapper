@@ -16,3 +16,6 @@ jobs:
     with:
       tag: 'nightly'
     secrets: inherit
+  nightly:
+    uses: hugomachadoOrg/fork-ast-cli-javascript-wrapper/.github/workflows/release-beta.yml@main
+    secrets: inherit
